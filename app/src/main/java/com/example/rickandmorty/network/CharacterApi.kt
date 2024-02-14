@@ -13,9 +13,9 @@ interface CharacterApi {
     suspend fun getCharacters()
     : Response<CharacterOne>
 
-    @GET("character/")
+    @GET("character/{id}")
     suspend fun getCharacterById(
-        @Path("id") id : Int
-    ) : Response<CharacterResult>
+        @Path("id") id: Int
+    ): Response<CharacterResult>
 
 }

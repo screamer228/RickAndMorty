@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.rickandmorty.character.CharacterResult
 import com.example.rickandmorty.character.Location
 import com.example.rickandmorty.character.Origin
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import com.example.rickandmorty.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -36,23 +41,24 @@ class DetailFragment : Fragment() {
 
         val args = arguments?.let { DetailFragmentArgs.fromBundle(it) }
         val itemCharacterId: Int = args?.itemId ?: 0
-//            ?: CharacterResult("1",
-//                listOf(),
-//                "1",
-//                0,
-//                "1",
-//                Location("1", "1"),
-//                "1",
-//                Origin("1", "1"),
-//                "1",
-//                "1",
-//                "1",
-//                "1"
-//        )
 
-//        val itemCharacter: CharacterResult? = arguments?.getParcelable("itemCharacter")
-        binding?.itemDetailedId?.text = itemCharacterId.toString()
+        lifecycleScope.launch(Dispatchers.Main) {
+            mainViewModel.getCharacterById(itemCharacterId)
 
-//        view.findViewById<TextView>(R.id.item_detailed_id).text = itemId?.toString()
+            }
+
+        mainViewModel.characterDetailResult.observe(viewLifecycleOwner, Observer {
+            binding?.itemDetailedName?.text = it.name
+            binding?.itemDetailedImage?.load(it.image)
+            binding?.itemDetailedId?.text = it.id.toString()
+            binding?.itemDetailedGender?.text = it.gender
+            binding?.itemDetailedType?.text = it.type
+            binding?.itemDetailedCreated?.text = it.created
+            binding?.itemDetailedName?.text = it.status
+            binding?.itemDetailedName?.text = it.species
+            binding?.itemDetailedName?.text = it.location.name
+            binding?.itemDetailedName?.text = it.origin.name
+
+        })
     }
 }
