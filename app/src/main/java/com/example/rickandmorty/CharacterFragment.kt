@@ -47,45 +47,8 @@ class CharacterFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Main) {
             mainViewModel.getCharacters{
 
-//                Log.d("checkVisible", "callback started")
-//                Log.d("checkVisible", mainViewModel.charactersResult.value?.info?.count.toString())
-//                Log.d("checkVisible", mainViewModel.charactersResult.value?.characterResults?.size.toString())
-//
-//                val characterResultList = mutableListOf<CharacterResult>()
-//
-//                mainViewModel.charactersResult.value?.characterResults?.forEach{
-//                    Log.d("checkVisible", "forEach started")
-//
-//                    characterResultList.add(
-//                        CharacterResult(
-//                            created = it.created,
-//                            episode = it.episode,
-//                            gender = it.gender,
-//                            id = it.id,
-//                            image = it.image,
-//                            location = it.location,
-//                            name = it.name,
-//                            origin = it.origin,
-//                            species = it.species,
-//                            status = it.status,
-//                            type = it.type,
-//                            url = it.url
-//                        )
-//                    )
-//                    Log.d("checkVisible", "item added")
-//                }
-//                Log.d("checkVisible", "data entered")
-//                adapter = RecyclerAdapter(requireContext(), characterResultList, object : ItemClickListener {
-//                    override fun onItemClick(data: Int) {
-//                        navigateToDetail(data)
-//                    }
-//                })
-//                binding?.mainRecycler?.adapter = adapter
-//                Log.d("checkVisible", "recycler assigned")
             }
         }
-
-
 
         //Проверка на тестовых данных
 //        adapter = RecyclerAdapter(requireContext(), getSampleData(), object : ItemClickListener {
