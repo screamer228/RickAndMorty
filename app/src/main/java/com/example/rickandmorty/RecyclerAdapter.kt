@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.rickandmorty.character.CharacterResult
 import com.example.rickandmorty.databinding.ItemCharacterBinding
 
@@ -20,8 +21,8 @@ class RecyclerAdapter(
 
         fun bind(item: CharacterResult) {
             binding.itemRecyclerTitle.text = item.name
-            binding.itemRecyclerImage.text = item.image
-            binding.itemRecyclerDescription.text = item.type
+            binding.itemRecyclerImage.load(item.image)
+            binding.itemRecyclerDescription.text = item.gender
         }
     }
 

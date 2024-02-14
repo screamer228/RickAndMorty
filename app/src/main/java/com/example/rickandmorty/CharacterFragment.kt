@@ -1,7 +1,6 @@
 package com.example.rickandmorty
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.character.CharacterResult
@@ -38,11 +38,13 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        val spanCount = 3 // Например, 2 столбца
+        val layoutManager = GridLayoutManager(requireContext(), spanCount)
+
+        // Установка GridLayoutManager для RecyclerView
         binding?.mainRecycler?.layoutManager = layoutManager
 
         lifecycleScope.launch(Dispatchers.Main) {
-            Log.d("checkVisible", "launch started")
             mainViewModel.getCharacters{
 
 //                Log.d("checkVisible", "callback started")
@@ -114,15 +116,12 @@ class CharacterFragment : Fragment() {
                     )
                 )
             }
-            Log.d("checkVisible", "data entered")
             adapter = RecyclerAdapter(requireContext(), characterResultList, object : ItemClickListener {
                 override fun onItemClick(data: Int) {
                     navigateToDetail(data)
                 }
             })
             binding?.mainRecycler?.adapter = adapter
-            Log.d("checkVisible", "recycler assigned")
-
         })
     }
 
