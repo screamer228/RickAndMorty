@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_origin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_species"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_detailed_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment" />
+</LinearLayout>
