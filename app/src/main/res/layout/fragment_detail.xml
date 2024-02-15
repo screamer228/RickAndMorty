@@ -7,68 +7,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.DetailFragment">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="240dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/item_detailed_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_launcher"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/item_detailed_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:src="@mipmap/ic_launcher"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/Unknown" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/Unknown" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/Unknown" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/Unknown" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_species"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_species"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/Unknown" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_origin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/Unknown" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/Unknown" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_created"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_detailed_created"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="4dp"
+                android:text="@string/Unknown" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

@@ -56,7 +56,7 @@ class CharacterFragment : Fragment() {
         }
 
         lifecycleScope.launch(Dispatchers.Main) {
-            mainViewModel.getCharacters(currentPage)
+            mainViewModel.getCharactersByPage(currentPage)
             Log.d("pagination","$currentPage")
         }
 
@@ -101,7 +101,7 @@ class CharacterFragment : Fragment() {
         if (currentPage < 42) {
             this.currentPage += 1
             lifecycleScope.launch(Dispatchers.Main) {
-                mainViewModel.getCharacters(currentPage)
+                mainViewModel.getCharactersByPage(currentPage)
             }
         }
         else {
@@ -114,7 +114,7 @@ class CharacterFragment : Fragment() {
         if (currentPage > 1) {
             this.currentPage -= 1
             lifecycleScope.launch(Dispatchers.Main) {
-                mainViewModel.getCharacters(currentPage)
+                mainViewModel.getCharactersByPage(currentPage)
             }
         }
         else {

@@ -22,9 +22,9 @@ class MainViewModel @Inject constructor(
     private val characterDetail: MutableLiveData<CharacterResult> = MutableLiveData()
     val characterDetailResult: LiveData<CharacterResult> = characterDetail
 
-    suspend fun getCharacters(page: Int){
+    suspend fun getCharactersByPage(page: Int){
         withContext(Dispatchers.IO){
-            val charactersResult = characterRepository.getCharacters(page)
+            val charactersResult = characterRepository.getCharactersByPage(page)
             characters.postValue(charactersResult)
         }
     }

@@ -13,8 +13,8 @@ class CharacterRepositoryImpl @Inject constructor(
     private val characterApi: CharacterApi
 ): CharacterRepository {
 
-    override suspend fun getCharacters(page: Int): CharacterOne {
-        val response = characterApi.getCharacters(page)
+    override suspend fun getCharactersByPage(page: Int): CharacterOne {
+        val response = characterApi.getCharactersByPage(page)
         if (response.isSuccessful){
             val characterResult = response.body()
             return CharacterOne(

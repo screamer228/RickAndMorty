@@ -42,8 +42,8 @@ class DetailFragment : Fragment() {
             }
 
         mainViewModel.characterDetailResult.observe(viewLifecycleOwner, Observer {
-            binding?.itemDetailedName?.text = "Name: ${it.name}"
             binding?.itemDetailedImage?.load(it.image)
+            binding?.itemDetailedName?.text = "Name: ${it.name}"
             binding?.itemDetailedGender?.text = "Gender: ${it.gender}"
             binding?.itemDetailedType?.text = "Type: ${it.type}"
             binding?.itemDetailedLocation?.text = "Location: ${it.location.name}"

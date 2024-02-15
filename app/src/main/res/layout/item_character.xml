@@ -2,9 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="135dp"
-    android:layout_height="190dp">
+    android:layout_height="200dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -27,18 +26,21 @@
                 android:id="@+id/item_recycler_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:text="Title"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/item_recycler_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:src="@mipmap/ic_launcher"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_recycler_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:text="Description"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
