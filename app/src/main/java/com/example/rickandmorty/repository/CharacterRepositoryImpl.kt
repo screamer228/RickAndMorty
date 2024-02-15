@@ -12,8 +12,8 @@ class CharacterRepositoryImpl @Inject constructor(
     private val characterApi: CharacterApi
 ): CharacterRepository {
 
-    override suspend fun getCharacters(): CharacterOne {
-        val response = characterApi.getCharacters()
+    override suspend fun getCharacters(page: Int): CharacterOne {
+        val response = characterApi.getCharacters(page)
         if (response.isSuccessful){
             val characterResult = response.body()
             return CharacterOne(
@@ -76,5 +76,9 @@ class CharacterRepositoryImpl @Inject constructor(
             url = ""
 
         )
+    }
+
+    companion object {
+        const val PAGE = 1
     }
 }

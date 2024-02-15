@@ -5,7 +5,7 @@ import com.example.rickandmorty.character.CharacterResult
 
 interface CharacterRepository {
 
-    suspend fun getCharacters() : CharacterOne
+    suspend fun getCharacters(page: Int) : CharacterOne
 
     suspend fun getCharacterById(id : Int) : CharacterResult
 

@@ -27,6 +27,7 @@ class CharacterFragment : Fragment() {
     private val binding get() = _binding
     private val mainViewModel : MainViewModel by activityViewModels()
     private lateinit var adapter: RecyclerAdapter
+    private var currentPage: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +46,13 @@ class CharacterFragment : Fragment() {
         binding?.mainRecycler?.layoutManager = layoutManager
 
         lifecycleScope.launch(Dispatchers.Main) {
-            mainViewModel.getCharacters{
+            mainViewModel.getCharacters(currentPage)
 
-            }
         }
 
+        binding?.buttonNext?.setOnClickListener {
+            loadNextPage(currentPage)
+        }
         //Проверка на тестовых данных
 //        adapter = RecyclerAdapter(requireContext(), getSampleData(), object : ItemClickListener {
 //            override fun onItemClick(data: Int) {
@@ -86,6 +89,14 @@ class CharacterFragment : Fragment() {
             })
             binding?.mainRecycler?.adapter = adapter
         })
+    }
+
+    private fun loadNextPage(currentPage: Int) {
+        this.currentPage += 1
+        lifecycleScope.launch(Dispatchers.Main) {
+            mainViewModel.getCharacters(currentPage)
+
+        }
     }
 
     private fun getSampleData(): List<CharacterResult> {
