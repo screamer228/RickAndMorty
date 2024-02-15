@@ -1,4 +1,4 @@
-package com.example.rickandmorty.character
+package com.example.rickandmorty.domain.models.character
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
@@ -14,6 +14,6 @@ data class CharacterResult(
     val origin: Origin,
     val species: String,
     val status: String,
-    @SerializedName("type") val type: String,
+    val type: String,
     val url: String
 )

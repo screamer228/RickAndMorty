@@ -2,8 +2,8 @@ package com.example.rickandmorty.di
 
 import com.example.rickandmorty.network.CharacterApi
 import com.example.rickandmorty.network.RetrofitClient
-import com.example.rickandmorty.repository.CharacterRepository
-import com.example.rickandmorty.repository.CharacterRepositoryImpl
+import com.example.rickandmorty.domain.repository.CharacterRepository
+import com.example.rickandmorty.data.repository.CharacterRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

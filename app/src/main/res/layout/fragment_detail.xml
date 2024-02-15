@@ -6,7 +6,7 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailFragment">
+    tools:context=".presentation.DetailFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/item_detailed_name"
@@ -21,13 +21,6 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:src="@mipmap/ic_launcher"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/item_detailed_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/Unknown" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/item_detailed_gender"
@@ -75,6 +68,7 @@
         android:id="@+id/item_detailed_created"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:padding="8dp"
         android:text="@string/Unknown" />
 </LinearLayout>

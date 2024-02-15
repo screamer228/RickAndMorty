@@ -1,4 +1,4 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.presentation
 
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.rickandmorty.character.CharacterResult
-import com.example.rickandmorty.character.Location
-import com.example.rickandmorty.character.Origin
+import com.example.rickandmorty.ItemClickListener
+import com.example.rickandmorty.MainViewModel
+import com.example.rickandmorty.RecyclerAdapter
+import com.example.rickandmorty.domain.models.character.CharacterResult
+import com.example.rickandmorty.domain.models.character.Location
+import com.example.rickandmorty.domain.models.character.Origin
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -47,18 +48,16 @@ class CharacterFragment : Fragment() {
         // Установка GridLayoutManager для RecyclerView
         binding?.mainRecycler?.layoutManager = layoutManager
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            mainViewModel.getCharacters(currentPage)
-            Log.d("pagination","$currentPage")
-        }
-
-
         binding?.buttonNext?.setOnClickListener {
             loadNextPage(currentPage)
         }
-
         binding?.buttonPrevious?.setOnClickListener {
             loadPrevPage(currentPage)
+        }
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            mainViewModel.getCharacters(currentPage)
+            Log.d("pagination","$currentPage")
         }
 
         //Проверка на тестовых данных
@@ -69,7 +68,6 @@ class CharacterFragment : Fragment() {
 //        })
 //        binding?.mainRecycler?.adapter = adapter
 
-            //Реализация с обсервером
         mainViewModel.charactersResult.observe(viewLifecycleOwner, Observer {
             val characterResultList = mutableListOf<CharacterResult>()
             it.characterResults?.forEach{
@@ -129,7 +127,8 @@ class CharacterFragment : Fragment() {
         // Генерация тестовых данных
         val dataList = mutableListOf<CharacterResult>()
         for (i in 1..10) {
-            dataList.add(CharacterResult(
+            dataList.add(
+                CharacterResult(
                 "1",
                 listOf(),
                 "1",
@@ -142,7 +141,8 @@ class CharacterFragment : Fragment() {
                 "1",
                 "1",
                 "1"
-            ))
+            )
+            )
         }
         return dataList
     }

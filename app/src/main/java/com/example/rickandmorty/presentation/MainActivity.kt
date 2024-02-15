@@ -1,14 +1,12 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
+import com.example.rickandmorty.MainViewModel
+import com.example.rickandmorty.R
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         Thread.sleep(2500)
         installSplashScreen()
         setContentView(R.layout.activity_main)
-        
+
 
     }
 }

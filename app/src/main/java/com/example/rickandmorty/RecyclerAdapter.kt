@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.rickandmorty.character.CharacterResult
+import com.example.rickandmorty.domain.models.character.CharacterResult
 import com.example.rickandmorty.databinding.ItemCharacterBinding
 
 class RecyclerAdapter(

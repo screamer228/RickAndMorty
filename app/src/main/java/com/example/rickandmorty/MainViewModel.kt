@@ -3,9 +3,9 @@ package com.example.rickandmorty
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.rickandmorty.character.CharacterOne
-import com.example.rickandmorty.character.CharacterResult
-import com.example.rickandmorty.repository.CharacterRepository
+import com.example.rickandmorty.domain.models.character.CharacterOne
+import com.example.rickandmorty.domain.models.character.CharacterResult
+import com.example.rickandmorty.domain.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

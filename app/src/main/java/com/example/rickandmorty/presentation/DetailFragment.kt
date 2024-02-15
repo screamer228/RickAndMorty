@@ -1,21 +1,15 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.rickandmorty.character.CharacterResult
-import com.example.rickandmorty.character.Location
-import com.example.rickandmorty.character.Origin
-import com.example.rickandmorty.databinding.FragmentCharacterBinding
+import com.example.rickandmorty.MainViewModel
 import com.example.rickandmorty.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -48,16 +42,15 @@ class DetailFragment : Fragment() {
             }
 
         mainViewModel.characterDetailResult.observe(viewLifecycleOwner, Observer {
-            binding?.itemDetailedName?.text = it.name
+            binding?.itemDetailedName?.text = "Name: ${it.name}"
             binding?.itemDetailedImage?.load(it.image)
-            binding?.itemDetailedId?.text = it.id.toString()
-            binding?.itemDetailedGender?.text = it.gender
-            binding?.itemDetailedType?.text = it.type
-            binding?.itemDetailedCreated?.text = it.created
-            binding?.itemDetailedName?.text = it.status
-            binding?.itemDetailedName?.text = it.species
-            binding?.itemDetailedName?.text = it.location.name
-            binding?.itemDetailedName?.text = it.origin.name
+            binding?.itemDetailedGender?.text = "Gender: ${it.gender}"
+            binding?.itemDetailedType?.text = "Type: ${it.type}"
+            binding?.itemDetailedLocation?.text = "Location: ${it.location.name}"
+            binding?.itemDetailedSpecies?.text = "Species: ${it.species}"
+            binding?.itemDetailedOrigin?.text = "Origin: ${it.origin.name}"
+            binding?.itemDetailedStatus?.text = "Status: ${it.status}"
+            binding?.itemDetailedCreated?.text = "Created: ${it.created}"
 
         })
     }
