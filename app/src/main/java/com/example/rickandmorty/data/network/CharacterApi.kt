@@ -1,7 +1,7 @@
-package com.example.rickandmorty.network
+package com.example.rickandmorty.data.network
 
-import com.example.rickandmorty.domain.models.character.CharacterOne
-import com.example.rickandmorty.domain.models.character.CharacterResult
+import com.example.rickandmorty.data.network.models.CharacterOne
+import com.example.rickandmorty.data.network.models.CharacterResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

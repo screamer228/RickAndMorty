@@ -1,7 +1,7 @@
 package com.example.rickandmorty.di
 
-import com.example.rickandmorty.network.CharacterApi
-import com.example.rickandmorty.network.RetrofitClient
+import com.example.rickandmorty.data.network.CharacterApi
+import com.example.rickandmorty.data.network.RetrofitClient
 import com.example.rickandmorty.domain.repository.CharacterRepository
 import com.example.rickandmorty.data.repository.CharacterRepositoryImpl
 import dagger.Module
@@ -23,7 +23,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRequestsApi() : CharacterApi{
+    fun providesRequestsApi() : CharacterApi {
         return RetrofitClient.getInstance().create(CharacterApi::class.java)
     }
 

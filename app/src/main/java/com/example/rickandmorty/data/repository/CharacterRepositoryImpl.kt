@@ -1,12 +1,12 @@
 package com.example.rickandmorty.data.repository
 
-import com.example.rickandmorty.domain.models.character.CharacterOne
-import com.example.rickandmorty.domain.models.character.CharacterResult
-import com.example.rickandmorty.domain.models.character.Info
-import com.example.rickandmorty.domain.models.character.Location
-import com.example.rickandmorty.domain.models.character.Origin
+import com.example.rickandmorty.data.network.models.CharacterOne
+import com.example.rickandmorty.data.network.models.CharacterResult
+import com.example.rickandmorty.data.network.models.Info
+import com.example.rickandmorty.data.network.models.Location
+import com.example.rickandmorty.data.network.models.Origin
 import com.example.rickandmorty.domain.repository.CharacterRepository
-import com.example.rickandmorty.network.CharacterApi
+import com.example.rickandmorty.data.network.CharacterApi
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(

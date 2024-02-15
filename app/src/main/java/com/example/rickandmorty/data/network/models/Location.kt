@@ -1,4 +1,4 @@
-package com.example.rickandmorty.domain.models.character
+package com.example.rickandmorty.data.network.models
 
 data class Location(
     val name: String,
