@@ -1,10 +1,12 @@
 package com.example.rickandmorty
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -47,12 +49,18 @@ class CharacterFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Main) {
             mainViewModel.getCharacters(currentPage)
-
+            Log.d("pagination","$currentPage")
         }
+
 
         binding?.buttonNext?.setOnClickListener {
             loadNextPage(currentPage)
         }
+
+        binding?.buttonPrevious?.setOnClickListener {
+            loadPrevPage(currentPage)
+        }
+
         //Проверка на тестовых данных
 //        adapter = RecyclerAdapter(requireContext(), getSampleData(), object : ItemClickListener {
 //            override fun onItemClick(data: Int) {
@@ -92,11 +100,29 @@ class CharacterFragment : Fragment() {
     }
 
     private fun loadNextPage(currentPage: Int) {
-        this.currentPage += 1
-        lifecycleScope.launch(Dispatchers.Main) {
-            mainViewModel.getCharacters(currentPage)
-
+        if (currentPage < 42) {
+            this.currentPage += 1
+            lifecycleScope.launch(Dispatchers.Main) {
+                mainViewModel.getCharacters(currentPage)
+            }
         }
+        else {
+            Toast.makeText(context, "This is the last page!", Toast.LENGTH_SHORT).show()
+        }
+        Log.d("pagination","$currentPage")
+    }
+
+    private fun loadPrevPage(currentPage: Int) {
+        if (currentPage > 1) {
+            this.currentPage -= 1
+            lifecycleScope.launch(Dispatchers.Main) {
+                mainViewModel.getCharacters(currentPage)
+            }
+        }
+        else {
+            Toast.makeText(context, "This is the first page!", Toast.LENGTH_SHORT).show()
+        }
+        Log.d("pagination","$currentPage")
     }
 
     private fun getSampleData(): List<CharacterResult> {
