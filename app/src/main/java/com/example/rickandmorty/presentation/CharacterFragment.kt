@@ -16,10 +16,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+private const val MIN_PAGE: Int = 1
+private const val MAX_PAGE: Int = 42
+
 @AndroidEntryPoint
 class CharacterFragment : Fragment() {
 
-    private var _binding: FragmentCharacterBinding? = null
+    private lateinit var _binding: FragmentCharacterBinding
     private val binding get() = _binding
     private val mainViewModel : MainViewModel by activityViewModels()
     private lateinit var adapter: RecyclerAdapter
@@ -28,41 +31,37 @@ class CharacterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCharacterBinding.inflate(inflater, container, false)
-        return binding?.root
+    ): View {
+        _binding = FragmentCharacterBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val spanCount = 3
-        val layoutManager = GridLayoutManager(requireContext(), spanCount)
-        binding?.mainRecycler?.layoutManager = layoutManager
 
         clickListeners()
-
-        lifecycleScope.launch(Dispatchers.Main) {
             mainViewModel.getCharactersByPage(currentPage)
-        }
 
         observers()
 
     }
 
     private fun observers() {
-        mainViewModel.charactersResult.observe(viewLifecycleOwner, Observer {
-            adapter = RecyclerAdapter(requireContext(), it.characterResults, object :
-                ItemClickListener {
+        mainViewModel.charactersResult.observe(viewLifecycleOwner) {
+            adapter = RecyclerAdapter(requireContext(), it.characterResults,
+                object : ItemClickListener {
                 override fun onItemClick(data: Int) {
                     navigateToDetail(data)
                 }
-            })
-            binding?.mainRecycler?.adapter = adapter
-        })
+            }) {
+
+            }
+            binding.rvCharacterList.adapter = adapter
+        }
     }
 
     private fun loadNextPage(currentPage: Int) {
-        if (currentPage < 42) {
+        if (currentPage < MAX_PAGE) {
             this.currentPage += 1
             lifecycleScope.launch(Dispatchers.Main) {
                 mainViewModel.getCharactersByPage(currentPage + 1)
@@ -74,7 +73,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun loadPrevPage(currentPage: Int) {
-        if (currentPage > 1) {
+        if (currentPage > MIN_PAGE) {
             this.currentPage -= 1
             lifecycleScope.launch(Dispatchers.Main) {
                 mainViewModel.getCharactersByPage(currentPage - 1)
@@ -86,10 +85,10 @@ class CharacterFragment : Fragment() {
     }
 
     private fun clickListeners(){
-        binding?.buttonNext?.setOnClickListener {
+        binding.buttonNext.setOnClickListener {
             loadNextPage(currentPage)
         }
-        binding?.buttonPrevious?.setOnClickListener {
+        binding.buttonPrevious.setOnClickListener {
             loadPrevPage(currentPage)
         }
     }

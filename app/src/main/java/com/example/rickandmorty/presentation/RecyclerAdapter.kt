@@ -11,13 +11,20 @@ import com.example.rickandmorty.domain.entity.CharacterResultEntity
 class RecyclerAdapter(
     private val fragmentContext: Context,
     private val dataList: List<CharacterResultEntity>,
-    private val clickListener: ItemClickListener
+    private val clickListener: ItemClickListener,
+    private val callback: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: ItemCharacterBinding, private val context: Context)
-        : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(
+        private val binding: ItemCharacterBinding,
+        private val context: Context,
+        private val callback: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CharacterResultEntity) {
+            itemView.setOnClickListener {
+                callback.invoke(item.id)
+            }
             binding.itemRecyclerTitle.text = item.name
             binding.itemRecyclerImage.load(item.image)
             binding.itemRecyclerDescription.text = item.gender
@@ -25,8 +32,11 @@ class RecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, fragmentContext)
+        val binding = ItemCharacterBinding.inflate(LayoutInflater.from(parent.context),
+            parent, false)
+        return ViewHolder(binding, fragmentContext) {itemId ->
+            callback.invoke(itemId)
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,7 +46,6 @@ class RecyclerAdapter(
             clickListener.onItemClick(item.id)
         }
     }
-
     override fun getItemCount(): Int {
         return dataList.size
     }
