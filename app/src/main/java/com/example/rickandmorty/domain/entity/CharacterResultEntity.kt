@@ -1,8 +1,10 @@
-package com.example.rickandmorty.data.network.models
+package com.example.rickandmorty.domain.entity
 
-data class CharacterResult(
+import com.example.rickandmorty.data.network.models.Location
+import com.example.rickandmorty.data.network.models.Origin
+
+data class CharacterResultEntity(
     val created: String,
-    val episode: List<String>,
     val gender: String,
     val id: Int,
     val image: String,
@@ -12,5 +14,4 @@ data class CharacterResult(
     val species: String,
     val status: String,
     val type: String,
-    val url: String
 )

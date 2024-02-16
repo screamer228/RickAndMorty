@@ -1,23 +1,23 @@
-package com.example.rickandmorty
+package com.example.rickandmorty.presentation
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.rickandmorty.data.network.models.CharacterResult
 import com.example.rickandmorty.databinding.ItemCharacterBinding
+import com.example.rickandmorty.domain.entity.CharacterResultEntity
 
 class RecyclerAdapter(
     private val fragmentContext: Context,
-    private val dataList: List<CharacterResult>,
+    private val dataList: List<CharacterResultEntity>,
     private val clickListener: ItemClickListener
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: ItemCharacterBinding, private val context: Context)
         : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: CharacterResult) {
+        fun bind(item: CharacterResultEntity) {
             binding.itemRecyclerTitle.text = item.name
             binding.itemRecyclerImage.load(item.image)
             binding.itemRecyclerDescription.text = item.gender

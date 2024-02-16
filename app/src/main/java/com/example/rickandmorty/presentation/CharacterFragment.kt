@@ -1,7 +1,6 @@
 package com.example.rickandmorty.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.rickandmorty.ItemClickListener
-import com.example.rickandmorty.MainViewModel
-import com.example.rickandmorty.RecyclerAdapter
-import com.example.rickandmorty.data.network.models.CharacterResult
-import com.example.rickandmorty.data.network.models.Location
-import com.example.rickandmorty.data.network.models.Origin
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -46,39 +39,20 @@ class CharacterFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(), spanCount)
         binding?.mainRecycler?.layoutManager = layoutManager
 
-        binding?.buttonNext?.setOnClickListener {
-            loadNextPage(currentPage)
-        }
-        binding?.buttonPrevious?.setOnClickListener {
-            loadPrevPage(currentPage)
-        }
+        clickListeners()
 
         lifecycleScope.launch(Dispatchers.Main) {
             mainViewModel.getCharactersByPage(currentPage)
-            Log.d("pagination","$currentPage")
         }
 
+        observers()
+
+    }
+
+    private fun observers() {
         mainViewModel.charactersResult.observe(viewLifecycleOwner, Observer {
-            val characterResultList = mutableListOf<CharacterResult>()
-            it.characterResults?.forEach{
-                characterResultList.add(
-                    CharacterResult(
-                        created = it.created,
-                        episode = it.episode,
-                        gender = it.gender,
-                        id = it.id,
-                        image = it.image,
-                        location = it.location,
-                        name = it.name,
-                        origin = it.origin,
-                        species = it.species,
-                        status = it.status,
-                        type = it.type,
-                        url = it.url
-                    )
-                )
-            }
-            adapter = RecyclerAdapter(requireContext(), characterResultList, object : ItemClickListener {
+            adapter = RecyclerAdapter(requireContext(), it.characterResults, object :
+                ItemClickListener {
                 override fun onItemClick(data: Int) {
                     navigateToDetail(data)
                 }
@@ -108,6 +82,15 @@ class CharacterFragment : Fragment() {
         }
         else {
             Toast.makeText(context, "This is the first page!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun clickListeners(){
+        binding?.buttonNext?.setOnClickListener {
+            loadNextPage(currentPage)
+        }
+        binding?.buttonPrevious?.setOnClickListener {
+            loadPrevPage(currentPage)
         }
     }
 

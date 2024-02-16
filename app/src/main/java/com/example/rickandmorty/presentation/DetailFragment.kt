@@ -9,8 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import com.example.rickandmorty.MainViewModel
 import com.example.rickandmorty.databinding.FragmentDetailBinding
+import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,17 +41,24 @@ class DetailFragment : Fragment() {
 
             }
 
-        mainViewModel.characterDetailResult.observe(viewLifecycleOwner, Observer {
-            binding?.itemDetailedImage?.load(it.image)
-            binding?.itemDetailedName?.text = "Name: ${it.name}"
-            binding?.itemDetailedGender?.text = "Gender: ${it.gender}"
-            binding?.itemDetailedType?.text = "Type: ${it.type}"
-            binding?.itemDetailedLocation?.text = "Location: ${it.location.name}"
-            binding?.itemDetailedSpecies?.text = "Species: ${it.species}"
-            binding?.itemDetailedOrigin?.text = "Origin: ${it.origin.name}"
-            binding?.itemDetailedStatus?.text = "Status: ${it.status}"
-            binding?.itemDetailedCreated?.text = "Created: ${it.created}"
+        observers()
+    }
 
+    private fun observers(){
+        mainViewModel.characterDetailResult.observe(viewLifecycleOwner, Observer {
+            putContent(it)
         })
+    }
+
+    private fun putContent(characterResultEntity: CharacterResultEntity){
+        binding?.itemDetailedImage?.load(characterResultEntity.image)
+        binding?.itemDetailedName?.text = "Name: ${characterResultEntity.name}"
+        binding?.itemDetailedGender?.text = "Gender: ${characterResultEntity.gender}"
+        binding?.itemDetailedType?.text = "Type: ${characterResultEntity.type}"
+        binding?.itemDetailedLocation?.text = "Location: ${characterResultEntity.location.name}"
+        binding?.itemDetailedSpecies?.text = "Species: ${characterResultEntity.species}"
+        binding?.itemDetailedOrigin?.text = "Origin: ${characterResultEntity.origin.name}"
+        binding?.itemDetailedStatus?.text = "Status: ${characterResultEntity.status}"
+        binding?.itemDetailedCreated?.text = "Created: ${characterResultEntity.created}"
     }
 }

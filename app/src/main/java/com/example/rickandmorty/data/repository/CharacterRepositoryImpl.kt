@@ -1,33 +1,31 @@
 package com.example.rickandmorty.data.repository
 
-import com.example.rickandmorty.data.network.models.CharacterOne
-import com.example.rickandmorty.data.network.models.CharacterResult
-import com.example.rickandmorty.data.network.models.Info
+import com.example.rickandmorty.data.mappers.CharacterResultMapper
+import com.example.rickandmorty.data.mappers.CharactersResponseMapper
 import com.example.rickandmorty.data.network.models.Location
 import com.example.rickandmorty.data.network.models.Origin
 import com.example.rickandmorty.domain.repository.CharacterRepository
 import com.example.rickandmorty.data.network.CharacterApi
+import com.example.rickandmorty.domain.entity.CharacterResultEntity
+import com.example.rickandmorty.domain.entity.CharactersEntity
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
-    private val characterApi: CharacterApi
+    private val characterApi: CharacterApi,
+    private val characterResultMapper: CharacterResultMapper,
+    private val charactersResponseMapper: CharactersResponseMapper
 ): CharacterRepository {
 
-    override suspend fun getCharactersByPage(page: Int): CharacterOne {
+    override suspend fun getCharactersByPage(page: Int): CharactersEntity {
         val response = characterApi.getCharactersByPage(page)
         if (response.isSuccessful){
             val characterResult = response.body()
-            return CharacterOne(
-                info = characterResult?.info ?: Info(0, "", 0, ""),
-                characterResults = characterResult?.characterResults ?: listOf()
-            )
+            return charactersResponseMapper.mapDataToDomain(characterResult!!)
         }
-        return CharacterOne(
-            info = Info(0, "", 0, ""),
+        return CharactersEntity(
             characterResults = listOf(
-                CharacterResult(
+                CharacterResultEntity(
                     "1",
-                    listOf(),
                     "1",
                     0,
                     "1",
@@ -37,34 +35,19 @@ class CharacterRepositoryImpl @Inject constructor(
                     "1",
                     "1",
                     "1",
-                    "1"
                 )
             )
         )
     }
 
-    override suspend fun getCharacterById(id: Int): CharacterResult {
+    override suspend fun getCharacterById(id: Int): CharacterResultEntity {
         val response = characterApi.getCharacterById(id)
         if (response.isSuccessful){
             val characterByIdResult = response.body()
-            return CharacterResult(
-                created = characterByIdResult?.created ?: "",
-                episode = characterByIdResult?.episode ?: listOf(),
-                gender = characterByIdResult?.gender ?: "",
-                id = characterByIdResult?.id ?: 0,
-                image = characterByIdResult?.image ?: "",
-                location = characterByIdResult?.location ?: Location("",""),
-                name = characterByIdResult?.name ?: "",
-                origin = characterByIdResult?.origin ?: Origin("",""),
-                species = characterByIdResult?.species ?: "",
-                status = characterByIdResult?.status ?: "",
-                type = characterByIdResult?.type ?: "",
-                url = characterByIdResult?.url ?: ""
-            )
+            return characterResultMapper.mapDataToDomain(characterByIdResult!!)
         }
-        return CharacterResult(
+        return CharacterResultEntity(
             created = "",
-            episode = listOf(),
             gender = "",
             id = 0,
             image = "",
@@ -74,12 +57,7 @@ class CharacterRepositoryImpl @Inject constructor(
             species = "",
             status = "",
             type = "",
-            url = ""
-
         )
     }
 
-    companion object {
-        const val PAGE = 1
-    }
 }
