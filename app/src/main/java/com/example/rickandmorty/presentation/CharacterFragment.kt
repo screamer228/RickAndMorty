@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +46,7 @@ class CharacterFragment : Fragment() {
 
     private fun observers() {
         mainViewModel.charactersResult.observe(viewLifecycleOwner) {
-            adapter = RecyclerAdapter(requireContext(), it.characterResults,
+            adapter = RecyclerAdapter(it.characterResults,
                 object : ItemClickListener {
                 override fun onItemClick(data: Int) {
                     navigateToDetail(data)

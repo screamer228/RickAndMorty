@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="Unknown">Unknown</string>
+    <string name="Title">Unknown</string>
+    <string name="Description">Unknown</string>
 </resources>

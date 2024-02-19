@@ -1,6 +1,5 @@
 package com.example.rickandmorty.presentation
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +8,6 @@ import com.example.rickandmorty.databinding.ItemCharacterBinding
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 
 class RecyclerAdapter(
-    private val fragmentContext: Context,
     private val dataList: List<CharacterResultEntity>,
     private val clickListener: ItemClickListener,
     private val callback: (Int) -> Unit
@@ -17,7 +15,6 @@ class RecyclerAdapter(
 
     class ViewHolder(
         private val binding: ItemCharacterBinding,
-        private val context: Context,
         private val callback: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -34,7 +31,7 @@ class RecyclerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemCharacterBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
-        return ViewHolder(binding, fragmentContext) {itemId ->
+        return ViewHolder(binding) {itemId ->
             callback.invoke(itemId)
         }
     }
