@@ -20,7 +20,14 @@ class CharacterFragment : Fragment() {
     private lateinit var _binding: FragmentCharacterBinding
     private val binding get() = _binding
     private val mainViewModel : MainViewModel by activityViewModels()
-    private lateinit var adapter: RecyclerAdapter
+    private var adapter: RecyclerAdapter = RecyclerAdapter(
+        object : ItemClickListener {
+            override fun onItemClick(data: Int) {
+                navigateToDetail(data)
+            }
+        }) {
+
+    }
 
 
     override fun onCreateView(
@@ -34,6 +41,8 @@ class CharacterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.rvCharacterList.adapter = adapter
+
         clickListeners()
 
         mainViewModel.getCharactersByPage(mainViewModel.currentPage)
@@ -44,19 +53,10 @@ class CharacterFragment : Fragment() {
 
     private fun observers() {
         mainViewModel.charactersResult.observe(viewLifecycleOwner) {
-            adapter = RecyclerAdapter(it.characterResults,
-                object : ItemClickListener {
-                override fun onItemClick(data: Int) {
-                    navigateToDetail(data)
-                }
-            }) {
+            adapter.updateList(it.characterResults)
 
-            }
-            binding.rvCharacterList.adapter = adapter
         }
     }
-
-
 
     private fun clickListeners(){
         binding.buttonNext.setOnClickListener {

@@ -8,10 +8,11 @@ import com.example.rickandmorty.databinding.ItemCharacterBinding
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 
 class RecyclerAdapter(
-    private val dataList: List<CharacterResultEntity>,
     private val clickListener: ItemClickListener,
     private val callback: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+
+    private var dataList: MutableList<CharacterResultEntity> = mutableListOf()
 
     class ViewHolder(
         private val binding: ItemCharacterBinding,
@@ -45,5 +46,10 @@ class RecyclerAdapter(
     }
     override fun getItemCount(): Int {
         return dataList.size
+    }
+
+    fun updateList(charactersList: List<CharacterResultEntity>){
+        dataList = charactersList.toMutableList()
+        notifyDataSetChanged()
     }
 }
