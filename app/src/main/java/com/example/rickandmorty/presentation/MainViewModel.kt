@@ -9,10 +9,8 @@ import com.example.rickandmorty.domain.entity.CharactersEntity
 import com.example.rickandmorty.domain.usecase.getCharachersByPage.GetCharactersByPageUseCase
 import com.example.rickandmorty.domain.usecase.getCharacterById.GetCharacterByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +18,8 @@ class MainViewModel @Inject constructor(
     private val getCharactersByPageUseCase: GetCharactersByPageUseCase,
     private val getCharacterByIdUseCase: GetCharacterByIdUseCase
 ): ViewModel() {
+
+    var currentPage: Int = 1
 
     private val characters: MutableLiveData<CharactersEntity> = MutableLiveData()
     val charactersResult: LiveData<CharactersEntity> = characters
@@ -39,5 +39,13 @@ class MainViewModel @Inject constructor(
             val characterDetailResult = getCharacterByIdUseCase.getCharacterById(id)
             characterDetail.postValue(characterDetailResult)
         }
+    }
+
+    fun loadNextPage() {
+        getCharactersByPage(currentPage)
+    }
+
+    fun loadPrevPage() {
+        getCharactersByPage(currentPage)
     }
 }

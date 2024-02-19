@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 private const val MIN_PAGE: Int = 1
 private const val MAX_PAGE: Int = 42
@@ -24,7 +21,7 @@ class CharacterFragment : Fragment() {
     private val binding get() = _binding
     private val mainViewModel : MainViewModel by activityViewModels()
     private lateinit var adapter: RecyclerAdapter
-    private var currentPage: Int = 1
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +35,8 @@ class CharacterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         clickListeners()
-            mainViewModel.getCharactersByPage(currentPage)
+
+        mainViewModel.getCharactersByPage(mainViewModel.currentPage)
 
         observers()
 
@@ -58,36 +56,27 @@ class CharacterFragment : Fragment() {
         }
     }
 
-    private fun loadNextPage(currentPage: Int) {
-        if (currentPage < MAX_PAGE) {
-            this.currentPage += 1
-            lifecycleScope.launch(Dispatchers.Main) {
-                mainViewModel.getCharactersByPage(currentPage + 1)
-            }
-        }
-        else {
-            Toast.makeText(context, "This is the last page!", Toast.LENGTH_SHORT).show()
-        }
-    }
 
-    private fun loadPrevPage(currentPage: Int) {
-        if (currentPage > MIN_PAGE) {
-            this.currentPage -= 1
-            lifecycleScope.launch(Dispatchers.Main) {
-                mainViewModel.getCharactersByPage(currentPage - 1)
-            }
-        }
-        else {
-            Toast.makeText(context, "This is the first page!", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     private fun clickListeners(){
         binding.buttonNext.setOnClickListener {
-            loadNextPage(currentPage)
+            if (mainViewModel.currentPage < MAX_PAGE) {
+                mainViewModel.currentPage ++
+                mainViewModel.loadNextPage()
+            }
+            else {
+                Toast.makeText(context, "This is the last page!", Toast.LENGTH_SHORT).show()
+            }
         }
+
         binding.buttonPrevious.setOnClickListener {
-            loadPrevPage(currentPage)
+            if (mainViewModel.currentPage > MIN_PAGE){
+                mainViewModel.currentPage --
+                mainViewModel.loadPrevPage()
+            }
+            else {
+                Toast.makeText(context, "This is the last page!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
