@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.example.rickandmorty.databinding.FragmentDetailBinding
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
+import com.example.rickandmorty.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

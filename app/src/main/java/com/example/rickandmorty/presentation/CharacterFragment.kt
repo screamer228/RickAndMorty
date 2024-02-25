@@ -9,26 +9,19 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
+import com.example.rickandmorty.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val MIN_PAGE: Int = 1
 private const val MAX_PAGE: Int = 42
 
 @AndroidEntryPoint
-class CharacterFragment : Fragment() {
+class CharacterFragment : Fragment(), ItemClickListener {
 
     private lateinit var _binding: FragmentCharacterBinding
     private val binding get() = _binding
     private val mainViewModel : MainViewModel by activityViewModels()
-    private var adapter: RecyclerAdapter = RecyclerAdapter(
-        object : ItemClickListener {
-            override fun onItemClick(data: Int) {
-                navigateToDetail(data)
-            }
-        }) {
-
-    }
-
+    private val adapter: RecyclerAdapter = RecyclerAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +49,17 @@ class CharacterFragment : Fragment() {
             adapter.updateList(it.characterResults)
 
         }
+
+        mainViewModel.navigateToDetail.observe(viewLifecycleOwner) { itemId ->
+            if (itemId != null) {
+                val action = CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(itemId)
+                findNavController().navigate(action)
+
+                // Убедитесь, что сбрасываете значение в вашей ViewModel после навигации,
+                // чтобы избежать повторных переходов при повторном наблюдении изменений в LiveData
+                mainViewModel.resetNavigation()
+            }
+        }
     }
 
     private fun clickListeners(){
@@ -79,9 +83,7 @@ class CharacterFragment : Fragment() {
             }
         }
     }
-
-    private fun navigateToDetail(itemId: Int) {
-        val action = CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(itemId)
-        findNavController().navigate(action)
+    override fun onItemClick(data: Int) {
+        mainViewModel.navigateToDetail(data)
     }
 }

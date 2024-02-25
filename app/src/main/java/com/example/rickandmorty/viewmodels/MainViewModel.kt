@@ -1,9 +1,10 @@
-package com.example.rickandmorty.presentation
+package com.example.rickandmorty.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import com.example.rickandmorty.domain.entity.CharactersEntity
 import com.example.rickandmorty.domain.usecase.getCharachersByPage.GetCharactersByPageUseCase
@@ -16,10 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCharactersByPageUseCase: GetCharactersByPageUseCase,
-    private val getCharacterByIdUseCase: GetCharacterByIdUseCase
+    private val getCharacterByIdUseCase: GetCharacterByIdUseCase,
 ): ViewModel() {
 
     var currentPage: Int = 1
+
+    private val _navigateToDetail = MutableLiveData<Int?>()
+    val navigateToDetail: MutableLiveData<Int?>
+        get() = _navigateToDetail
 
     private val characters: MutableLiveData<CharactersEntity> = MutableLiveData()
     val charactersResult: LiveData<CharactersEntity> = characters
@@ -44,8 +49,13 @@ class MainViewModel @Inject constructor(
     fun loadNextPage() {
         getCharactersByPage(currentPage)
     }
-
     fun loadPrevPage() {
         getCharactersByPage(currentPage)
+    }
+    fun navigateToDetail(itemId: Int) {
+        _navigateToDetail.value = itemId
+    }
+    fun resetNavigation() {
+        _navigateToDetail.value = null
     }
 }

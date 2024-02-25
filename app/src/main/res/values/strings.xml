@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
-
     <string name="Unknown">Unknown</string>
     <string name="Title">Unknown</string>
     <string name="Description">Unknown</string>
+    <string name="previous">previous</string>
+    <string name="next">next</string>
+
 </resources>
