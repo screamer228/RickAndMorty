@@ -55,8 +55,6 @@ class CharacterFragment : Fragment(), ItemClickListener {
                 val action = CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(itemId)
                 findNavController().navigate(action)
 
-                // Убедитесь, что сбрасываете значение в вашей ViewModel после навигации,
-                // чтобы избежать повторных переходов при повторном наблюдении изменений в LiveData
                 mainViewModel.resetNavigation()
             }
         }

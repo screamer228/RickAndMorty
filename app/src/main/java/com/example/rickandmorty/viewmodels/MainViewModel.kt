@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import com.example.rickandmorty.domain.entity.CharactersEntity
 import com.example.rickandmorty.domain.usecase.getCharachersByPage.GetCharactersByPageUseCase
