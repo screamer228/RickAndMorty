@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.rickandmorty.R
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import com.example.rickandmorty.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,7 +67,10 @@ class CharacterFragment : Fragment(), ItemClickListener {
                 mainViewModel.loadNextPage()
             }
             else {
-                Toast.makeText(context, "This is the last page!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,
+                    getString(R.string.this_is_the_last_page),
+                    Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -76,7 +80,10 @@ class CharacterFragment : Fragment(), ItemClickListener {
                 mainViewModel.loadPrevPage()
             }
             else {
-                Toast.makeText(context, "This is the last page!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,
+                    getString(R.string.this_is_the_first_page),
+                    Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
