@@ -1,4 +1,4 @@
-package com.example.rickandmorty.viewmodels
+package com.example.rickandmorty.presentation.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,9 +21,9 @@ class MainViewModel @Inject constructor(
 
     var currentPage: Int = 1
 
-    private val _navigateToDetail = MutableLiveData<Int?>()
-    val navigateToDetail: MutableLiveData<Int?>
-        get() = _navigateToDetail
+    private val navigateToDetail = MutableLiveData<Int?>()
+    val navigateToDetailResult: MutableLiveData<Int?>
+        get() = navigateToDetail
 
     private val characters: MutableLiveData<CharactersEntity> = MutableLiveData()
     val charactersResult: LiveData<CharactersEntity> = characters
@@ -45,16 +45,17 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun navigateToDetail(itemId: Int) {
+        navigateToDetail.postValue(itemId)
+    }
+    fun resetNavigation() {
+        navigateToDetail.postValue(null)
+    }
+
     fun loadNextPage() {
         getCharactersByPage(currentPage)
     }
     fun loadPrevPage() {
         getCharactersByPage(currentPage)
-    }
-    fun navigateToDetail(itemId: Int) {
-        _navigateToDetail.value = itemId
-    }
-    fun resetNavigation() {
-        _navigateToDetail.value = null
     }
 }

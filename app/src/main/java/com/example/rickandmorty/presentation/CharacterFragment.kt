@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
-import com.example.rickandmorty.viewmodels.MainViewModel
+import com.example.rickandmorty.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val MIN_PAGE: Int = 1
@@ -47,10 +47,9 @@ class CharacterFragment : Fragment(), ItemClickListener {
     private fun observers() {
         mainViewModel.charactersResult.observe(viewLifecycleOwner) {
             adapter.updateList(it.characterResults)
-
         }
 
-        mainViewModel.navigateToDetail.observe(viewLifecycleOwner) { itemId ->
+        mainViewModel.navigateToDetailResult.observe(viewLifecycleOwner) { itemId ->
             if (itemId != null) {
                 val action = CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(itemId)
                 findNavController().navigate(action)
