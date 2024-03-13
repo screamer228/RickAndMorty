@@ -3,8 +3,9 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="130dp"
-    android:layout_height="195dp"
+    android:layout_width="120dp"
+    android:layout_height="190dp"
+    android:maxHeight="190dp"
     android:layout_margin="8dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:gravity="center"
             android:text="@string/Title"/>
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -37,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:gravity="center"
             android:text="@string/Description"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>
