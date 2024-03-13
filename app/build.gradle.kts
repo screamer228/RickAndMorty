@@ -44,6 +44,10 @@ android {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
+    //rx
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.8")
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+
     //splashScreen
     implementation("androidx.core:core-splashscreen:1.0.1")
 
