@@ -7,7 +7,7 @@ object RetrofitClient {
 
     private const val baseUrl = "https://rickandmortyapi.com/api/"
 
-    fun getInstance() : Retrofit {
+    fun getInstance(): Retrofit {
         return Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

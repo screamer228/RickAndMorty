@@ -25,8 +25,10 @@ class RecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCharacterBinding.inflate(LayoutInflater.from(parent.context),
-            parent, false)
+        val binding = ItemCharacterBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
         return ViewHolder(binding)
     }
 
@@ -37,11 +39,12 @@ class RecyclerAdapter(
             itemClickListener.onItemClick(item.id)
         }
     }
+
     override fun getItemCount(): Int {
         return dataList.size
     }
 
-    fun updateList(charactersList: List<CharacterResultEntity>){
+    fun updateList(charactersList: List<CharacterResultEntity>) {
         dataList = charactersList.toMutableList()
         notifyDataSetChanged()
     }

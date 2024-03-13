@@ -5,11 +5,12 @@ import com.example.rickandmorty.domain.entity.CharactersEntity
 
 class CharactersResponseMapper {
 
-    fun mapDataToDomain(characterResponse: CharactersResponseDTO) : CharactersEntity {
+    fun mapDataToDomain(characterResponse: CharactersResponseDTO): CharactersEntity {
         val characterResultMapper = CharacterResultMapper()
-        val characterResultsEntityList = characterResponse.characterResults!!.map {
-            characterResultDTO -> characterResultMapper.mapDataToDomain(characterResultDTO)
-        }
+        val characterResultsEntityList =
+            characterResponse.characterResults!!.map { characterResultDTO ->
+                characterResultMapper.mapDataToDomain(characterResultDTO)
+            }
         return CharactersEntity(characterResultsEntityList)
     }
 }

@@ -4,6 +4,6 @@ import com.example.rickandmorty.domain.entity.CharacterResultEntity
 
 interface GetCharacterByIdUseCase {
 
-    suspend fun getCharacterById(id : Int) : CharacterResultEntity
+    suspend fun getCharacterById(id: Int): CharacterResultEntity
 
 }

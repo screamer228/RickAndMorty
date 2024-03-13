@@ -1,4 +1,4 @@
-package com.example.rickandmorty.di
+package com.example.rickandmorty.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

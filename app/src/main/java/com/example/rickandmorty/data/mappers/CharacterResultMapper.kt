@@ -7,7 +7,7 @@ import com.example.rickandmorty.domain.entity.CharacterResultEntity
 
 class CharacterResultMapper {
 
-    fun mapDataToDomain(characterResult : CharacterResultDTO) : CharacterResultEntity {
+    fun mapDataToDomain(characterResult: CharacterResultDTO): CharacterResultEntity {
         return CharacterResultEntity(
             created = characterResult.created ?: "",
             gender = characterResult.gender ?: "",

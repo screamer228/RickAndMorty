@@ -13,15 +13,13 @@ import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import com.example.rickandmorty.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val MIN_PAGE: Int = 1
-private const val MAX_PAGE: Int = 42
 
 @AndroidEntryPoint
 class CharacterFragment : Fragment(), ItemClickListener {
 
     private lateinit var _binding: FragmentCharacterBinding
     private val binding get() = _binding
-    private val mainViewModel : MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val adapter: RecyclerAdapter = RecyclerAdapter(this)
 
     override fun onCreateView(
@@ -46,13 +44,14 @@ class CharacterFragment : Fragment(), ItemClickListener {
     }
 
     private fun observers() {
-        mainViewModel.charactersResult.observe(viewLifecycleOwner) {
+        mainViewModel.characters.observe(viewLifecycleOwner) {
             adapter.updateList(it.characterResults)
         }
 
-        mainViewModel.navigateToDetailResult.observe(viewLifecycleOwner) { itemId ->
+        mainViewModel.navigateToDetail.observe(viewLifecycleOwner) { itemId ->
             if (itemId != null) {
-                val action = CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(itemId)
+                val action =
+                    CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(itemId)
                 findNavController().navigate(action)
 
                 mainViewModel.resetNavigation()
@@ -60,34 +59,35 @@ class CharacterFragment : Fragment(), ItemClickListener {
         }
     }
 
-    private fun clickListeners(){
+    private fun clickListeners() {
         binding.buttonNext.setOnClickListener {
-            if (mainViewModel.currentPage < MAX_PAGE) {
-                mainViewModel.currentPage ++
-                mainViewModel.loadNextPage()
-            }
-            else {
-                Toast.makeText(context,
-                    getString(R.string.this_is_the_last_page),
-                    Toast.LENGTH_SHORT)
-                    .show()
-            }
+            mainViewModel.loadNextPage()
         }
 
         binding.buttonPrevious.setOnClickListener {
-            if (mainViewModel.currentPage > MIN_PAGE){
-                mainViewModel.currentPage --
-                mainViewModel.loadPrevPage()
-            }
-            else {
-                Toast.makeText(context,
-                    getString(R.string.this_is_the_first_page),
-                    Toast.LENGTH_SHORT)
-                    .show()
-            }
+            mainViewModel.loadPrevPage()
         }
     }
+
     override fun onItemClick(data: Int) {
         mainViewModel.navigateToDetail(data)
+    }
+
+    fun toastFirstPage() {
+        Toast.makeText(
+            context,
+            getString(R.string.this_is_the_first_page),
+            Toast.LENGTH_SHORT
+        )
+            .show()
+    }
+
+    fun toastLastPage() {
+        Toast.makeText(
+            context,
+            getString(R.string.this_is_the_last_page),
+            Toast.LENGTH_SHORT
+        )
+            .show()
     }
 }

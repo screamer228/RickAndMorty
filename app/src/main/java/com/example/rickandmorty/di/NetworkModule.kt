@@ -23,23 +23,27 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesGetCharactersByPageUseCase(characterRepository: CharacterRepository
-    ) : GetCharactersByPageUseCase {
+    fun providesGetCharactersByPageUseCase(
+        characterRepository: CharacterRepository
+    ): GetCharactersByPageUseCase {
         return GetCharactersByPageUseCaseImpl(characterRepository)
     }
 
     @Provides
     @Singleton
-    fun providesGetCharacterByIdUseCase(characterRepository: CharacterRepository
-    ) : GetCharacterByIdUseCase {
+    fun providesGetCharacterByIdUseCase(
+        characterRepository: CharacterRepository
+    ): GetCharacterByIdUseCase {
         return GetCharacterByIdUseCaseImpl(characterRepository)
     }
 
     @Provides
     @Singleton
-    fun providesCharacterRepository(characterApi: CharacterApi
-    ) : CharacterRepository {
-        return CharacterRepositoryImpl(characterApi,
+    fun providesCharacterRepository(
+        characterApi: CharacterApi
+    ): CharacterRepository {
+        return CharacterRepositoryImpl(
+            characterApi,
             characterResultMapper = CharacterResultMapper(),
             charactersResponseMapper = CharactersResponseMapper(
             )
@@ -48,7 +52,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRequestsApi() : CharacterApi {
+    fun providesRequestsApi(): CharacterApi {
         return RetrofitClient.getInstance().create(CharacterApi::class.java)
     }
 }

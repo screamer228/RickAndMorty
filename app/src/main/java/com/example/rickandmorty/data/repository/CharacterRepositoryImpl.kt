@@ -14,11 +14,11 @@ class CharacterRepositoryImpl @Inject constructor(
     private val characterApi: CharacterApi,
     private val characterResultMapper: CharacterResultMapper,
     private val charactersResponseMapper: CharactersResponseMapper
-): CharacterRepository {
+) : CharacterRepository {
 
     override suspend fun getCharactersByPage(page: Int): CharactersEntity {
         val response = characterApi.getCharactersByPage(page)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             val characterResult = response.body()
             return charactersResponseMapper.mapDataToDomain(characterResult!!)
         }
@@ -42,7 +42,7 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override suspend fun getCharacterById(id: Int): CharacterResultEntity {
         val response = characterApi.getCharacterById(id)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             val characterByIdResult = response.body()
             return characterResultMapper.mapDataToDomain(characterByIdResult!!)
         }
@@ -51,9 +51,9 @@ class CharacterRepositoryImpl @Inject constructor(
             gender = "",
             id = 0,
             image = "",
-            location = Location("",""),
+            location = Location("", ""),
             name = "",
-            origin = Origin("",""),
+            origin = Origin("", ""),
             species = "",
             status = "",
             type = "",

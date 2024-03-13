@@ -13,49 +13,64 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val MIN_PAGE: Int = 1
+private const val MAX_PAGE: Int = 42
+
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCharactersByPageUseCase: GetCharactersByPageUseCase,
     private val getCharacterByIdUseCase: GetCharacterByIdUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     var currentPage: Int = 1
 
-    private val navigateToDetail = MutableLiveData<Int?>()
-    val navigateToDetailResult: MutableLiveData<Int?>
-        get() = navigateToDetail
+    private val _navigateToDetail = MutableLiveData<Int?>()
+    val navigateToDetail: MutableLiveData<Int?>
+        get() = _navigateToDetail
 
-    private val characters: MutableLiveData<CharactersEntity> = MutableLiveData()
-    val charactersResult: LiveData<CharactersEntity> = characters
+    private val _characters: MutableLiveData<CharactersEntity> = MutableLiveData()
+    val characters: LiveData<CharactersEntity> = _characters
 
-    private val characterDetail: MutableLiveData<CharacterResultEntity> = MutableLiveData()
-    val characterDetailResult: LiveData<CharacterResultEntity> = characterDetail
+    private val _characterDetail: MutableLiveData<CharacterResultEntity> = MutableLiveData()
+    val characterDetail: LiveData<CharacterResultEntity> = _characterDetail
 
-    fun getCharactersByPage(page: Int){
-        viewModelScope.launch(Dispatchers.IO){
+    private val _isNeedShowToast: MutableLiveData<CharacterResultEntity> = MutableLiveData()
+
+    fun getCharactersByPage(page: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
             val charactersResult = getCharactersByPageUseCase.getCharactersByPage(page)
-            characters.postValue(charactersResult)
+            _characters.postValue(charactersResult)
         }
     }
 
-    fun getCharacterById(id: Int){
+    fun getCharacterById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val characterDetailResult = getCharacterByIdUseCase.getCharacterById(id)
-            characterDetail.postValue(characterDetailResult)
+            _characterDetail.postValue(characterDetailResult)
         }
     }
 
     fun navigateToDetail(itemId: Int) {
-        navigateToDetail.postValue(itemId)
+        _navigateToDetail.postValue(itemId)
     }
+
     fun resetNavigation() {
-        navigateToDetail.postValue(null)
+        _navigateToDetail.postValue(null)
     }
 
     fun loadNextPage() {
-        getCharactersByPage(currentPage)
+        if (currentPage < MAX_PAGE) {
+            currentPage++
+            getCharactersByPage(currentPage)
+        }
+        //TODO else Toast
     }
+
     fun loadPrevPage() {
-        getCharactersByPage(currentPage)
+        if (currentPage > MIN_PAGE) {
+            currentPage--
+            getCharactersByPage(currentPage)
+        }
+        //TODO else Toast
     }
 }

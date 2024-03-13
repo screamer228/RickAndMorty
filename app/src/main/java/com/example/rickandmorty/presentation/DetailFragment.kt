@@ -18,7 +18,7 @@ class DetailFragment : Fragment() {
 
     private lateinit var _binding: FragmentDetailBinding
     private val binding get() = _binding
-    private val mainViewModel : MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +38,13 @@ class DetailFragment : Fragment() {
         observers()
     }
 
-    private fun observers(){
-        mainViewModel.characterDetailResult.observe(viewLifecycleOwner, Observer {
+    private fun observers() {
+        mainViewModel.characterDetail.observe(viewLifecycleOwner, Observer {
             putContent(it)
         })
     }
 
-    private fun putContent(characterResultEntity: CharacterResultEntity){
+    private fun putContent(characterResultEntity: CharacterResultEntity) {
         binding.itemDetailedImage.load(characterResultEntity.image)
         binding.itemDetailedName.text = "Name: ${characterResultEntity.name}"
         binding.itemDetailedGender.text = "Gender: ${characterResultEntity.gender}"

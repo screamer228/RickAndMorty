@@ -8,8 +8,7 @@ class GetCharactersByPageUseCaseImpl @Inject constructor(
     private val characterRepository: CharacterRepository
 ) : GetCharactersByPageUseCase {
 
-    override suspend fun getCharactersByPage(page: Int) : CharactersEntity {
+    override suspend fun getCharactersByPage(page: Int): CharactersEntity {
         return characterRepository.getCharactersByPage(page)
     }
-
 }
