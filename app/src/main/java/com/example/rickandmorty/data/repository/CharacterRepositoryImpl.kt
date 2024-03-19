@@ -8,6 +8,7 @@ import com.example.rickandmorty.domain.repository.CharacterRepository
 import com.example.rickandmorty.data.network.CharacterApi
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import com.example.rickandmorty.domain.entity.CharactersEntity
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
@@ -16,48 +17,52 @@ class CharacterRepositoryImpl @Inject constructor(
     private val charactersResponseMapper: CharactersResponseMapper
 ) : CharacterRepository {
 
-    override suspend fun getCharactersByPage(page: Int): CharactersEntity {
-        val response = characterApi.getCharactersByPage(page)
-        if (response.isSuccessful) {
-            val characterResult = response.body()
-            return charactersResponseMapper.mapDataToDomain(characterResult!!)
-        }
-        return CharactersEntity(
-            characterResults = listOf(
-                CharacterResultEntity(
-                    "1",
-                    "1",
-                    0,
-                    "1",
-                    Location("1", "1"),
-                    "1",
-                    Origin("1", "1"),
-                    "1",
-                    "1",
-                    "1",
-                )
-            )
-        )
+    override fun getCharactersByPage(page: Int): Single<CharactersEntity> {
+        return characterApi.getCharactersByPage(page)
+            .map {
+                if (it.isSuccessful) {
+                    charactersResponseMapper.mapDataToDomain(it.body()!!)
+                } else {
+                    CharactersEntity(
+                        characterResults = listOf(
+                            CharacterResultEntity(
+                                "1",
+                                "1",
+                                0,
+                                "1",
+                                Location("1", "1"),
+                                "1",
+                                Origin("1", "1"),
+                                "1",
+                                "1",
+                                "1",
+                            )
+                        )
+                    )
+                }
+            }
     }
 
-    override suspend fun getCharacterById(id: Int): CharacterResultEntity {
-        val response = characterApi.getCharacterById(id)
-        if (response.isSuccessful) {
-            val characterByIdResult = response.body()
-            return characterResultMapper.mapDataToDomain(characterByIdResult!!)
-        }
-        return CharacterResultEntity(
-            created = "",
-            gender = "",
-            id = 0,
-            image = "",
-            location = Location("", ""),
-            name = "",
-            origin = Origin("", ""),
-            species = "",
-            status = "",
-            type = "",
-        )
+    override fun getCharacterById(id: Int): Single<CharacterResultEntity> {
+        return characterApi.getCharacterById(id)
+            .map {
+                if (it.isSuccessful) {
+                    characterResultMapper.mapDataToDomain(it.body()!!)
+                } else {
+                    CharacterResultEntity(
+                        created = "",
+                        gender = "",
+                        id = 0,
+                        image = "",
+                        location = Location("", ""),
+                        name = "",
+                        origin = Origin("", ""),
+                        species = "",
+                        status = "",
+                        type = "",
+                    )
+                }
+            }
     }
 
 }

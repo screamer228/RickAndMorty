@@ -47,6 +47,7 @@ dependencies {
     //rx
     implementation ("io.reactivex.rxjava3:rxjava:3.1.8")
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
 
     //splashScreen
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -71,9 +72,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$navVersion")
 
-    //coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+
 
     implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation ("androidx.activity:activity-ktx:1.8.2")

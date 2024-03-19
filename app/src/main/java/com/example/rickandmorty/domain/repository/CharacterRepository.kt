@@ -2,11 +2,12 @@ package com.example.rickandmorty.domain.repository
 
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import com.example.rickandmorty.domain.entity.CharactersEntity
+import io.reactivex.rxjava3.core.Single
 
 interface CharacterRepository {
 
-    suspend fun getCharactersByPage(page: Int): CharactersEntity
+    fun getCharactersByPage(page: Int): Single<CharactersEntity>
 
-    suspend fun getCharacterById(id: Int): CharacterResultEntity
+    fun getCharacterById(id: Int): Single<CharacterResultEntity>
 
 }
