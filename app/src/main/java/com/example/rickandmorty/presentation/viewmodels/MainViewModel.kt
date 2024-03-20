@@ -9,7 +9,6 @@ import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import com.example.rickandmorty.domain.entity.CharactersEntity
 import com.example.rickandmorty.domain.usecase.getCharachersByPage.GetCharactersByPageUseCase
 import com.example.rickandmorty.domain.usecase.getCharacterById.GetCharacterByIdUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -18,7 +17,6 @@ import javax.inject.Inject
 private const val MIN_PAGE: Int = 1
 private const val MAX_PAGE: Int = 42
 
-@HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCharactersByPageUseCase: GetCharactersByPageUseCase,
     private val getCharacterByIdUseCase: GetCharacterByIdUseCase,

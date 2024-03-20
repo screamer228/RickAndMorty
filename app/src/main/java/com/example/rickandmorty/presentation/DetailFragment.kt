@@ -5,20 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.example.rickandmorty.app.App
 import com.example.rickandmorty.databinding.FragmentDetailBinding
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import com.example.rickandmorty.presentation.viewmodels.MainViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.rickandmorty.presentation.viewmodels.MainViewModelFactory
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     private lateinit var _binding: FragmentDetailBinding
     private val binding get() = _binding
-    private val mainViewModel: MainViewModel by activityViewModels()
+
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +34,11 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity().applicationContext as App).appComponent.injectDetail(this)
+
+        mainViewModel = ViewModelProvider(this, viewModelFactory)
+            .get(MainViewModel::class.java)
 
         val itemCharacterId: Int = arguments?.getInt("itemId") ?: 0
 
