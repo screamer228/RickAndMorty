@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -55,10 +54,10 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil:2.5.0")
 
-    //hilt
-    val hiltVersion = "2.50"
-    implementation ("com.google.dagger:hilt-android:$hiltVersion")
-    kapt ("com.google.dagger:hilt-compiler:$hiltVersion")
+    //dagger
+    val daggerVersion = "2.50"
+    implementation ("com.google.dagger:dagger:$daggerVersion")
+    kapt ("com.google.dagger:dagger-compiler:$daggerVersion")
 
     //retrofit
     val retrofitVersion = "2.9.0"

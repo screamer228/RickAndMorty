@@ -10,49 +10,51 @@ import com.example.rickandmorty.domain.usecase.getCharachersByPage.GetCharacters
 import com.example.rickandmorty.domain.usecase.getCharachersByPage.GetCharactersByPageUseCaseImpl
 import com.example.rickandmorty.domain.usecase.getCharacterById.GetCharacterByIdUseCase
 import com.example.rickandmorty.domain.usecase.getCharacterById.GetCharacterByIdUseCaseImpl
+import com.example.rickandmorty.presentation.viewmodels.MainViewModelFactory
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-class NetworkModule {
-
+class AppModule {
 
     @Provides
-    @Singleton
-    fun providesGetCharactersByPageUseCase(
+    fun provideMainViewModelFactory(
+        getCharactersByPageUseCase: GetCharactersByPageUseCase,
+        getCharacterByIdUseCase: GetCharacterByIdUseCase
+    ): MainViewModelFactory {
+        return MainViewModelFactory(
+            getCharactersByPageUseCase,
+            getCharacterByIdUseCase
+        )
+    }
+
+    @Provides
+    fun provideGetCharactersByPageUseCase(
         characterRepository: CharacterRepository
     ): GetCharactersByPageUseCase {
         return GetCharactersByPageUseCaseImpl(characterRepository)
     }
 
     @Provides
-    @Singleton
-    fun providesGetCharacterByIdUseCase(
+    fun provideGetCharacterByIdUseCase(
         characterRepository: CharacterRepository
     ): GetCharacterByIdUseCase {
         return GetCharacterByIdUseCaseImpl(characterRepository)
     }
 
     @Provides
-    @Singleton
-    fun providesCharacterRepository(
+    fun provideCharacterRepository(
         characterApi: CharacterApi
     ): CharacterRepository {
         return CharacterRepositoryImpl(
             characterApi,
             characterResultMapper = CharacterResultMapper(),
-            charactersResponseMapper = CharactersResponseMapper(
-            )
+            charactersResponseMapper = CharactersResponseMapper()
         )
     }
 
     @Provides
-    @Singleton
-    fun providesRequestsApi(): CharacterApi {
+    fun provideRequestsApi(): CharacterApi {
         return RetrofitClient.getInstance().create(CharacterApi::class.java)
     }
 }

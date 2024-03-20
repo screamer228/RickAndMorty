@@ -6,21 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.rickandmorty.R
+import com.example.rickandmorty.app.App
 import com.example.rickandmorty.databinding.FragmentCharacterBinding
 import com.example.rickandmorty.presentation.viewmodels.MainViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.rickandmorty.presentation.viewmodels.MainViewModelFactory
+import javax.inject.Inject
 
-
-@AndroidEntryPoint
 class CharacterFragment : Fragment(), ItemClickListener {
 
     private lateinit var _binding: FragmentCharacterBinding
     private val binding get() = _binding
-    private val mainViewModel: MainViewModel by activityViewModels()
     private val adapter: RecyclerAdapter = RecyclerAdapter(this)
+
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +35,11 @@ class CharacterFragment : Fragment(), ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity().applicationContext as App).appComponent.injectCharacter(this)
+
+        mainViewModel = ViewModelProvider(this, viewModelFactory)
+            .get(MainViewModel::class.java)
 
         binding.rvCharacterList.adapter = adapter
 
