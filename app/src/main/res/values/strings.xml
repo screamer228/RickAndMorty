@@ -7,5 +7,7 @@
     <string name="next">next</string>
     <string name="this_is_the_last_page">This is the last page!</string>
     <string name="this_is_the_first_page">This is the first page!</string>
+    <string name="please_check_your_internet_connection">Please check your internet connection</string>
+    <string name="please_check_your_internet_next_line">%1$s\nPlease check your internet connection</string>
 
 </resources>

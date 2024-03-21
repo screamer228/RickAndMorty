@@ -11,6 +11,5 @@ class GetCharactersByPageUseCaseImpl @Inject constructor(
 
     override fun getCharactersByPage(page: Int): Single<CharactersEntity> {
         return characterRepository.getCharactersByPage(page)
-
     }
 }

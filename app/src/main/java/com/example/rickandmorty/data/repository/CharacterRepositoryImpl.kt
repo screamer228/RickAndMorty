@@ -23,22 +23,7 @@ class CharacterRepositoryImpl @Inject constructor(
                 if (it.isSuccessful) {
                     charactersResponseMapper.mapDataToDomain(it.body()!!)
                 } else {
-                    CharactersEntity(
-                        characterResults = listOf(
-                            CharacterResultEntity(
-                                "1",
-                                "1",
-                                0,
-                                "1",
-                                Location("1", "1"),
-                                "1",
-                                Origin("1", "1"),
-                                "1",
-                                "1",
-                                "1",
-                            )
-                        )
-                    )
+                    throw Throwable(it.errorBody().toString())
                 }
             }
     }

@@ -4,8 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.rickandmorty.R
@@ -53,17 +54,24 @@ class CharacterFragment : Fragment(), ItemClickListener {
 
     private fun observers() {
         mainViewModel.characters.observe(viewLifecycleOwner) {
+            binding.errorPlug.visibility = INVISIBLE
             adapter.updateList(it.characterResults)
+            binding.rvCharacterList.visibility = VISIBLE
         }
 
-        mainViewModel.navigateToDetail.observe(viewLifecycleOwner) { itemId ->
-            if (itemId != null) {
+        mainViewModel.navigateToDetail.observe(viewLifecycleOwner) {
+            if (it != null) {
                 val action =
-                    CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(itemId)
+                    CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(it)
                 findNavController().navigate(action)
-
-                mainViewModel.resetNavigation()
             }
+            mainViewModel.resetNavigation()
+        }
+
+        mainViewModel.charactersError.observe(viewLifecycleOwner) {
+            binding.rvCharacterList.visibility = INVISIBLE
+            binding.errorPlug.text = getString(R.string.please_check_your_internet_next_line, it)
+            binding.errorPlug.visibility = VISIBLE
         }
     }
 
@@ -79,23 +87,5 @@ class CharacterFragment : Fragment(), ItemClickListener {
 
     override fun onItemClick(data: Int) {
         mainViewModel.navigateToDetail(data)
-    }
-
-    fun toastFirstPage() {
-        Toast.makeText(
-            context,
-            getString(R.string.this_is_the_first_page),
-            Toast.LENGTH_SHORT
-        )
-            .show()
-    }
-
-    fun toastLastPage() {
-        Toast.makeText(
-            context,
-            getString(R.string.this_is_the_last_page),
-            Toast.LENGTH_SHORT
-        )
-            .show()
     }
 }

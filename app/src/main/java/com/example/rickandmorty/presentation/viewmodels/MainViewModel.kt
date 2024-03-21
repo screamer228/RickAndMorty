@@ -24,35 +24,36 @@ class MainViewModel @Inject constructor(
 
     var currentPage: Int = 1
 
-    private val _navigateToDetail = MutableLiveData<Int?>()
-    val navigateToDetail: MutableLiveData<Int?>
-        get() = _navigateToDetail
+    private val _navigateToDetail: MutableLiveData<Int?> = MutableLiveData()
+    val navigateToDetail: LiveData<Int?> = _navigateToDetail
 
     private val _characters: MutableLiveData<CharactersEntity> = MutableLiveData()
     val characters: LiveData<CharactersEntity> = _characters
 
+    private val _charactersError: MutableLiveData<String> = MutableLiveData()
+    val charactersError: LiveData<String> = _charactersError
+
     private val _characterDetail: MutableLiveData<CharacterResultEntity> = MutableLiveData()
     val characterDetail: LiveData<CharacterResultEntity> = _characterDetail
-
-    private val _isNeedShowToast: MutableLiveData<CharacterResultEntity> = MutableLiveData()
 
     fun getCharactersByPage(page: Int) {
         val result = getCharactersByPageUseCase.getCharactersByPage(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                _characters.value = it
+            .subscribe({
+                _characters.postValue(it)
             }, {
+                _charactersError.postValue(it.localizedMessage)
                 Log.e(TAG, "it ${it.localizedMessage}")
-        })
+            })
     }
 
     fun getCharacterById(id: Int) {
         val result = getCharacterByIdUseCase.getCharacterById(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                _characterDetail.value = it
+            .subscribe({
+                _characterDetail.postValue(it)
             }, {
                 Log.e(TAG, "it ${it.localizedMessage}")
             })
@@ -71,7 +72,6 @@ class MainViewModel @Inject constructor(
             currentPage++
             getCharactersByPage(currentPage)
         }
-        //TODO else Toast
     }
 
     fun loadPrevPage() {
@@ -79,6 +79,5 @@ class MainViewModel @Inject constructor(
             currentPage--
             getCharactersByPage(currentPage)
         }
-        //TODO else Toast
     }
 }
