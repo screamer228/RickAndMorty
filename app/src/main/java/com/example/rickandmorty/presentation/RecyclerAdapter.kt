@@ -2,16 +2,18 @@ package com.example.rickandmorty.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.rickandmorty.databinding.ItemCharacterBinding
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
+import com.example.rickandmorty.utils.MyDiffUtil
 
 class RecyclerAdapter(
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    private var dataList: MutableList<CharacterResultEntity> = mutableListOf()
+    private var dataList: List<CharacterResultEntity> = listOf()
 
     class ViewHolder(
         private val binding: ItemCharacterBinding,
@@ -44,8 +46,10 @@ class RecyclerAdapter(
         return dataList.size
     }
 
-    fun updateList(charactersList: List<CharacterResultEntity>) {
-        dataList = charactersList.toMutableList()
-        notifyDataSetChanged()
+    fun updateList(newDataList: List<CharacterResultEntity>) {
+        val diffUtil = MyDiffUtil(dataList, newDataList)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
+        dataList = newDataList
+        diffResult.dispatchUpdatesTo(this)
     }
 }
