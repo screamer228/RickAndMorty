@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import coil.load
+import com.example.rickandmorty.R
 import com.example.rickandmorty.databinding.FragmentDetailBinding
 import com.example.rickandmorty.domain.entity.CharacterResultEntity
 import com.example.rickandmorty.presentation.viewmodels.MainViewModel
@@ -46,13 +47,18 @@ class DetailFragment : Fragment() {
 
     private fun putContent(characterResultEntity: CharacterResultEntity) {
         binding.itemDetailedImage.load(characterResultEntity.image)
-        binding.itemDetailedName.text = "Name: ${characterResultEntity.name}"
-        binding.itemDetailedGender.text = "Gender: ${characterResultEntity.gender}"
-        binding.itemDetailedType.text = "Type: ${characterResultEntity.type}"
-        binding.itemDetailedLocation.text = "Location: ${characterResultEntity.location.name}"
-        binding.itemDetailedSpecies.text = "Species: ${characterResultEntity.species}"
-        binding.itemDetailedOrigin.text = "Origin: ${characterResultEntity.origin.name}"
-        binding.itemDetailedStatus.text = "Status: ${characterResultEntity.status}"
-        binding.itemDetailedCreated.text = "Created: ${characterResultEntity.created}"
+        binding.itemDetailedName.text = getString(R.string.name, characterResultEntity.name)
+        binding.itemDetailedGender.text = getString(R.string.gender, characterResultEntity.gender)
+        binding.itemDetailedType.text = getString(R.string.type, characterResultEntity.type)
+        binding.itemDetailedLocation.text =
+            getString(R.string.location, characterResultEntity.location.name)
+        binding.itemDetailedSpecies.text =
+            getString(R.string.species, characterResultEntity.species)
+        binding.itemDetailedOrigin.text =
+            getString(R.string.origin, characterResultEntity.origin.name)
+        binding.itemDetailedStatus.text =
+            getString(R.string.status, characterResultEntity.status)
+        binding.itemDetailedCreated.text =
+            getString(R.string.created, characterResultEntity.created)
     }
 }
