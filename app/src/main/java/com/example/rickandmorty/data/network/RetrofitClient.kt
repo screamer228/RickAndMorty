@@ -5,12 +5,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val baseUrl = "https://rickandmortyapi.com/api/"
+    private const val BASE_URL = "https://rickandmortyapi.com/api/"
 
     fun getInstance(): Retrofit {
-        return Retrofit.Builder().baseUrl(baseUrl)
+        return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
 }

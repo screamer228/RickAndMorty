@@ -18,5 +18,4 @@ interface CharacterApi {
     suspend fun getCharacterById(
         @Path("id") id: Int
     ): Response<CharacterResultDTO>
-
 }
